@@ -3,10 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "start": "node dist/src/server.js",
+    "build": "npx tsc",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/src/server.js\"",
+    "lint": "npx eslint \"src/**/*.{js,ts}\"",
     "prettier": "prettier --write .",
-    "prepare": "husky install"
+    "push": "npx prisma db push",
+    "migrate": "npx prisma migrate dev",
+    "studio": "npx prisma studio",
+    "prepare": "husky",
+    "seed": "ts-node ./prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.13.0",
