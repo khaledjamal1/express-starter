@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
-import { rateLimit } from 'express-rate-limit';
-import { logger } from '../lib/logger';
+import type { NextFunction, Request, Response } from 'express'
+import { rateLimit } from 'express-rate-limit'
+import { logger } from '../lib/logger'
 
 const loginLimiter = rateLimit({
   windowMs: 60 * 1000,
@@ -8,11 +8,9 @@ const loginLimiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   statusCode: 429,
   handler: (req: Request, res: Response, next: NextFunction, options) => {
-    logger.info(
-      `Too Many Requests: ${options.message.message}\t${req.method}\t${req.url}\t${req.headers.origin}`
-    );
-    res.status(options.statusCode).json(options.message);
-  },
-});
+    logger.info(`Too Many Requests: ${options.message.message}\t${req.method}\t${req.url}\t${req.headers.origin}`)
+    res.status(options.statusCode).json(options.message)
+  }
+})
 
-export default loginLimiter;
+export default loginLimiter
